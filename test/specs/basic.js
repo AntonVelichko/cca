@@ -2,14 +2,14 @@ const URL = 'https://likejean.github.io/homework-5/';
 
 
 
-describe('Test RFL', () => {
+describe('TEST RLF', () => {
 
     before('App URL', () => {
-        browser.url(URL);
+        browser.url('https://likejean.github.io/homework-5/');
     });
 
     xit('Verify that the Sub Buttons by default  -1, -2, -3  in the LLF are present', () => {
-        expect($('//button[text()="-3"]').getText()).toEqual('-3');
+        expect($('//button[@step="-2"]').getText()).toEqual('-3');
         expect($('//button[text()="-2"]').getText()).toEqual('-2');
         expect($('//button[text()="-1"]').getText()).toEqual('-1');
     });
@@ -53,14 +53,17 @@ describe('Test RFL', () => {
 });
 
 
+// -------------------------------------------------
+// -------------------------------------------------
+// -------------------------------------------------
 
 
-
-describe('Errors', () => {
+describe('ERRORS', () => {
 
     before('App URL', () => {
         browser.url(URL);
     });
+
 
     xit('Verify that App throws ERROR \'Lower Limit Must be  Less than Upper Limit\'', () => {
         $('//button[@name="negative"]').click();
@@ -85,6 +88,12 @@ describe('Errors', () => {
         expect($('//span[contains(text(), "ERROR")]').getText()).toContain('ERROR');
     });
 
+});
+
+
+// -------------------------------------------------
+// -------------------------------------------------
+// -------------------------------------------------
 
 
 
@@ -231,7 +240,7 @@ describe('Errors', () => {
         });
 
 
-        it('Verify that after delete the 2 Counter from the three one , other counters have the right add/subb buttons  (1, 2)', () => {
+        xit('Verify that after delete the 2 Counter from the three one , other counters have the right add/subb buttons  (1, 2)', () => {
             browser.refresh();
             $('//input[@data-testid="counter-name-input"]').setValue('Second counter');
             $('//button[.="Add Counter"]').click();
@@ -279,12 +288,45 @@ describe('Errors', () => {
             expect(actual).toEqual('0');
         });
 
-
-
-
-
 });
 
+
+// -------------------------------------------------
+// -------------------------------------------------
+// -------------------------------------------------
+
+
+
+describe('TESTS THAT DID NOT PASS MANUAL TESTING', () => {
+
+    before('App URL', () => {
+        browser.url(URL);
+    });
+
+
+    xit('Verify that LFL  doesn\'t accept "." error message "Input must be an INTEGER" will be appear below ', () => {
+        $('//button[@name="negative"]').click();
+        $('//input[@name="lower"]').setValue('.');
+        expect($('//span[contains(text(), "ERROR")]').isExisting()).toEqual(true);
+    });
+
+
+    xit('Verify that LFL  doesn\'t accept "1." An error message "Input must be an INTEGER"  appear below ', () => {
+        $('//button[@name="negative"]').click();
+        $('//input[@name="lower"]').setValue('1.');
+        browser.pause(1000);
+        expect($('//span[contains(text(), "ERROR")]').isExisting()).toEqual(true);
+    });
+
+
+    it('Verify that LLF  doesn\'t accept "1."', () => {
+        $('//button[@name="negative"]').click();
+        $('//input[@name="lower"]').setValue('1.');
+        browser.pause(1000);
+        expect($('//input[@name="lower"]').getValue()).toEqual('');
+    });
+
+    //--- finished here
 
 
 });
